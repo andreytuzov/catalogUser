@@ -1,0 +1,20 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate//Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="by.htp.task2.entity.User" table="users">
+		<meta attribute="class-descriptor">
+			This classcontains the user detail
+		</meta>
+		<id name="id" column="id" type="int">
+			<generator class="native"/>
+		</id>
+		<property name="username" column="username" type="string"/>
+		<property name="password" column="password" type="string"/>
+		<property name="email" column="email" type="string"/>
+		<property name="age" column="age" type="int"/>
+		<property name="sex" column="sex" type="string"/>
+		<property name="country" column="country" type="string"/>
+		<property name="removed" column="removed" type="int"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<div class="navbar navbar-fixed-top">
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/catalogUser/users">Каталог пользователей</a>
+		</div>
+		<div class="collapse navbar-collapse">		
+			<form class="navbar-form navbar-left">
+				<a class="btn btn-primary" href="/catalogUser/users/add">
+					<i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить пользователя
+				</a>
+				<a class="btn btn-danger" id="deleteAll" style="display: none;" onclick="delAll()">
+					<i class="glyphicon glyphicon-remove" aria-hidden="true"></i> Удалить все
+				</a>
+			</form>
+		</div>
+	</nav>
+</div>
