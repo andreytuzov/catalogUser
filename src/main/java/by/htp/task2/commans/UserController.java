@@ -90,7 +90,7 @@ public class UserController {
 	 * @return сообщение для пользователя
 	 */
 	@RequestMapping(path = "/delete", method = RequestMethod.POST,
-			produces = "text/plain;charset=utf-8")
+			produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String delete(@RequestParam("id") int id) {
 		logger.debug("Method delete, id = " + id);
@@ -106,7 +106,7 @@ public class UserController {
 	 * @return сообщение для пользователя
 	 */
 	@RequestMapping(path = "/deleteAll", method = RequestMethod.POST,
-			produces = "text/plain;charset=utf-8")
+			produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String deleteAll(@RequestParam("stringIDs") String stringIDs) {
 		logger.debug("Method delete, ids = " + stringIDs);

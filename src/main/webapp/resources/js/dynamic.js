@@ -37,7 +37,12 @@ function del(userID) {
 						$('#info > p').html(msg);
 						display_block_info(1);
 						// Удаляем запись
-						$('tr[data-id=' + userID + ']').remove(); 
+						$('tr[data-id=' + userID + ']').remove();
+						// Скрываем кнопку если нет активных checked
+						var checked = $('input:checkbox:checked');
+						if (checked.length < 1) {
+							$('#deleteAll').css('display', 'none');
+						}
 					},
 					error: function() {
 						// Вывод сообщения об ошибке
