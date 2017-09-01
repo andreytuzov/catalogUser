@@ -5,10 +5,12 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.stereotype.Component;
 
 import by.htp.task2.dao.UserDAO;
 import by.htp.task2.entity.User;
 
+@Component
 public class UserDAOImpl implements UserDAO {
 
 	private static final SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(User.class)
@@ -31,9 +33,7 @@ public class UserDAOImpl implements UserDAO {
 		Session session = factory.openSession();
 		User user = null;
 		try {
-			session.beginTransaction();
 			user = session.get(User.class, id);
-			session.getTransaction().commit();
 		} finally {
 			session.close();
 		}
@@ -46,9 +46,7 @@ public class UserDAOImpl implements UserDAO {
 		Session session = factory.openSession();
 		List<User> list = null;
 		try {
-			session.beginTransaction();
 			list = session.createQuery("FROM User u WHERE u.removed = 0").list();
-			session.getTransaction().commit();
 		} finally {
 			session.close();
 		}
@@ -60,7 +58,6 @@ public class UserDAOImpl implements UserDAO {
 		Session session = factory.openSession();
 		try {
 			session.beginTransaction();
-			
 			session.update(user);
 			session.getTransaction().commit();
 		} finally {

@@ -2,6 +2,7 @@ package by.htp.task2.commans;
 
 import javax.validation.Valid;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import by.htp.task2.dao.UserDAO;
-import by.htp.task2.dao.impl.UserDAOImpl;
 import by.htp.task2.entity.User;
 
 @Controller
@@ -24,6 +24,9 @@ import by.htp.task2.entity.User;
 public class UserController {
 
 	private static final Logger logger = Logger.getLogger("by.htp.task2.commands.userController");
+	
+	@Autowired
+	private UserDAO userDAO;
 	
 	/** Тестовые данные: пол (мужской, женский) */
 	@Value("${users.sexOptions}")
@@ -44,7 +47,6 @@ public class UserController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model) {
-		UserDAO userDAO = new UserDAOImpl();
 		model.addAttribute("userList", userDAO.readAll());
 		return "users";
 	}
@@ -78,7 +80,6 @@ public class UserController {
 			model.addAttribute("countryOptions", countryOptions);
 			return "add-user";
 		}
-		UserDAO userDAO = new UserDAOImpl();
 		userDAO.add(user);
 		model.addAttribute("info", "Пользователь с id = " + user.getId() + "  был успешно добавлен");
 		return "redirect:/users";
@@ -94,7 +95,6 @@ public class UserController {
 	@ResponseBody
 	public String delete(@RequestParam("id") int id) {
 		logger.debug("Method delete, id = " + id);
-		UserDAO userDAO = new UserDAOImpl();
 		userDAO.delete(id);
 		logger.debug("Deletion completed successfully");
 		return "Пользователь с id = " + id + "  был успешно удален";	
@@ -110,7 +110,6 @@ public class UserController {
 	@ResponseBody
 	public String deleteAll(@RequestParam("stringIDs") String stringIDs) {
 		logger.debug("Method delete, ids = " + stringIDs);
-		UserDAO userDAO = new UserDAOImpl();
 		userDAO.deleteAll(stringIDs);
 		return "Пользователи с ID = " + stringIDs + "  были успешно удалены";
 	}
@@ -123,7 +122,6 @@ public class UserController {
 	 */
 	@RequestMapping(path = "/update", method = RequestMethod.GET)
 	public String update(@RequestParam("id") int id, Model model) {
-		UserDAO userDAO = new UserDAOImpl();
 		User user = userDAO.read(id);
 		if (user != null) {
 			model.addAttribute("sexOptions", sexOptions);
@@ -152,7 +150,6 @@ public class UserController {
 			model.addAttribute("countryOptions", countryOptions);
 			return "update-user";
 		}
-		UserDAO userDAO = new UserDAOImpl();
 		userDAO.update(user);
 		
 		model.addAttribute("info", "Пользователь с id = " + user.getId() + "  был успешно обновлен");
